@@ -33,7 +33,6 @@ const Form = ({ setPacientes, pacientes, paciente, setPaciente }) => {
     e.preventDefault()
 
     if ([nombre, propietario, email, fecha, sintomas].includes('')) {
-      console.log('al menos un campo esta vacio')
       setError(true)
       return
     }
