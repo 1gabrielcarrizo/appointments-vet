@@ -1,13 +1,28 @@
 import React from 'react'
+import Swal from 'sweetalert2'
 
 const Patient = ({ paciente, setPaciente, eliminarPaciente }) => {
-    const { nombre, propietario, email, fecha, sintomas , id} = paciente
+    const { nombre, propietario, email, fecha, sintomas, id } = paciente
 
     const handleEliminar = () => {
-        const respuesta = confirm('Deseas eliminar este paciente?')
-        if(respuesta){
-            eliminarPaciente(id)
-        }
+        Swal.fire({
+            title: `Estas seguro de que deseas eliminar al paciente "${nombre}"?`,
+            text: "No hay vuelta atras!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DC2626',
+            cancelButtonColor: '#6E7881',
+            confirmButtonText: 'Si, eliminado!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Eliminado!',
+                    `El paciente "${nombre}" ha sido eliminado`,
+                    'success'
+                )
+                eliminarPaciente(id)
+            }
+        })
     }
 
     return (
@@ -32,9 +47,9 @@ const Patient = ({ paciente, setPaciente, eliminarPaciente }) => {
                 <span className='font-normal normal-case'>{sintomas}</span>
             </p>
 
-            <div className='flex justify-between mt-10'>
-                <button type='button' className='py-2 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg' onClick={() => setPaciente(paciente)}>Editar</button>
-                <button type='button' className='py-2 px-6 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-lg' onClick={handleEliminar}>Eliminar</button>
+            <div className='flex flex-col sm:flex-row justify-between mt-10'>
+                <button type='button' className='py-2 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase rounded-lg' onClick={() => setPaciente(paciente)}>Editar</button>
+                <button type='button' className='py-2 px-6 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-lg mt-2 sm:mt-0' onClick={handleEliminar}>Eliminar</button>
             </div>
         </div>
     )

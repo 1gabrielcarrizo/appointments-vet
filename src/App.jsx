@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from './components/Header'
 import Form from './components/Form'
 import PatientList from './components/PatientList'
+import Footer from './components/Footer'
 
 const App = () => {
   const [pacientes, setPacientes] = useState(JSON.parse(localStorage.getItem('pacientes')) || [])
@@ -18,6 +19,7 @@ const App = () => {
   }
 
   return (
+    <>
     <div className='container mx-auto mt-20'>
       <Header />
       <div className='mt-12 md:flex'>
@@ -25,6 +27,8 @@ const App = () => {
         <PatientList pacientes={pacientes} setPaciente={setPaciente} eliminarPaciente={eliminarPaciente}/>
       </div>
     </div>
+    <Footer/>
+    </>
   )
 }
 
